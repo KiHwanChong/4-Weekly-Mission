@@ -4,15 +4,15 @@ import useUser from '../hooks/useUser';
 
 interface User {
   email: string;
-  image_source: string;
+  imageSource: string;
 }
 
 const UserInformation = ({ user }: { user: User }) => {
   if (!user) return null;
-  const { email, image_source } = user;
+  const { email, imageSource } = user;
   return (
     <div className='profileContainer'>
-      <img className='logo' src={image_source} alt='프로필 이미지' />
+      <img className='logo' src={imageSource} alt='프로필 이미지' />
       <span>{email}</span>
     </div>
   );

@@ -1,9 +1,10 @@
 import './SearchBar.css';
 import searchIcon from '../assets/searchIcon.svg';
 import closeIcon from '../assets/close.svg';
+import { Dispatch } from 'react';
 
 interface SearchBarProps {
-  setSearchQuery: (value: string) => void;
+  setSearchQuery: Dispatch<React.SetStateAction<string>>;
   searchQuery: string;
 }
 

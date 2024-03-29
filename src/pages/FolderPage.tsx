@@ -9,7 +9,7 @@ const FolderPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isAddLinkBarVisible, setIsAddLinkBarVisible] = useState(true);
 
-  const addLinkBarRef = useRef(null);
+  const addLinkBarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const current = addLinkBarRef.current;

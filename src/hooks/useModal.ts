@@ -2,14 +2,14 @@ import { useState } from 'react';
 
 interface ModalProps {
   showModal: boolean;
-  handleOpenModal: (e: React.MouseEvent) => void;
+  handleOpenModal: (e: React.MouseEvent<HTMLButtonElement>) => void;
   handleCloseModal: () => void;
 }
 
 const useModal = (): ModalProps => {
   const [showModal, setShowModal] = useState(false);
 
-  const handleOpenModal = (e: React.MouseEvent) => {
+  const handleOpenModal = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setShowModal(true);
   };
