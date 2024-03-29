@@ -1,0 +1,34 @@
+.folderOption {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.folderOption:hover {
+  background-color: var(--gray5-color);
+}
+
+.folderOption h4,
+.folderOption p {
+  margin: 4px;
+}
+
+.selectedFolder {
+  background-color: var(--gray5-color);
+}
+
+.folderOptionsContainer {
+  width: 100%;
+}
+
+.checkIcon {
+  position: absolute;
+  right: 15px;
+}
+
+.blueButton {
+  background: linear-gradient(91deg, #6d6afe 0.12%, #6ae3fe 101.84%);
+}
