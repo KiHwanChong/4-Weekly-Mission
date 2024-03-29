@@ -1,6 +1,6 @@
 :root {
   --primary-color: #6d5afe;
-  --red-color: #ff5b56;
+  --error: #dc3a3a;
   --black-color: #111322;
   --white-color: #ffffff;
   --gray1-color: #3e3e43;
@@ -8,6 +8,15 @@
   --gray3-color: #ccd5e3;
   --gray4-color: #e7effb;
   --gray5-color: #f0f6ff;
+  --purple-100: #f8f0ff;
+  --purple-200: #ecd9ff;
+  --purple-300: #dcb9ff;
+  --purple-400: #c894fd;
+  --purple-500: #ab57ff;
+  --purple-600: #9935ff;
+  --purple-700: #861dee;
+  --purple-800: #6e0ad1;
+  --purple-900: #5603a7;
 }
 
 * {
