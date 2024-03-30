@@ -1,0 +1,13 @@
+.container {
+  background-color: var(--gray5-color);
+  height: 100vh;
+  padding: 200px 0;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 400px;
+  margin: 0 auto;
+}

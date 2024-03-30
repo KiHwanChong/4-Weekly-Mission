@@ -1,6 +1,6 @@
 .errorText {
-  margin-top: 1rem;
   color: var(--error);
+  margin: 0;
 }
 
 .headerText {
@@ -13,37 +13,33 @@
   padding: 18px 15px;
   border: 1px solid var(--gray3-color);
   border-radius: 8px;
-  animation: border 1s linear infinite alternate;
   outline: none;
 }
 
-.errorInput {
-  border-color: var(--error) !important;
+.input:focus {
+  border-color: var(--primary-color);
 }
 
-@keyframes border {
-  0% {
-    border-color: var(--purple-300);
-  }
-
-  25% {
-    border-color: var(--purple-500);
-  }
-
-  50% {
-    border-color: var(--purple-600);
-  }
-
-  100% {
-    border-color: var(--purple-900);
-  }
+.errorInput {
+  border-color: var(--error);
 }
 
 .container {
-  width: 400px;
-  text-align: left;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin: 200px auto;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+}
+
+.eye {
+  position: absolute;
+  right: 15px;
+  top: 58%;
+  cursor: pointer;
 }
