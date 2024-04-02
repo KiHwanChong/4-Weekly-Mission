@@ -16,12 +16,12 @@ const Logo = ({ signUp, signIn }: LogoProps) => {
       </Link>
       {signIn && (
         <p>
-          회원이 아니신가요? <Link href='/sign_up'>회원 가입하기</Link>
+          회원이 아니신가요? <Link href='/signup'>회원 가입하기</Link>
         </p>
       )}
       {signUp && (
         <p>
-          이미 회원이신가요? <Link href='/sign_in'>로그인 하기</Link>
+          이미 회원이신가요? <Link href='/signin'>로그인 하기</Link>
         </p>
       )}
     </div>

@@ -1,6 +1,8 @@
 import Input from '../components/Input';
 import Logo from '../components/Logo';
 import styles from './sign.module.css';
+import Button from '../components/Button';
+import SocialSign from '@/components/SocialSign';
 
 const signIn = () => {
   return (
@@ -8,6 +10,8 @@ const signIn = () => {
       <div className={styles.content}>
         <Logo signIn />
         <Input />
+        <Button text='로그인' />
+        <SocialSign text='소셜 로그인' />
       </div>
     </main>
   );
