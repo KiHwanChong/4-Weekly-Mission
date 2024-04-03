@@ -3,18 +3,20 @@ import Input from '../components/Input';
 import Logo from '../components/Logo';
 import styles from './sign.module.css';
 import SocialSign from '@/components/SocialSign';
+import { useState } from 'react';
 
-const signUp = () => {
+const SignUp = () => {
+  const [inputValues, setInputValues] = useState({ email: '', password: '', passwordCheck: '' });
   return (
     <main className={styles.container}>
       <div className={styles.content}>
         <Logo signUp />
-        <Input passwordCheck />
-        <Button text='회원가입' />
+        <Input passwordCheck inputValues={inputValues} setInputValues={setInputValues} />
+        <Button text='회원가입' inputValues={inputValues} />
         <SocialSign text='다른 방식으로 가입하기' />
       </div>
     </main>
   );
 };
 
-export default signUp;
+export default SignUp;

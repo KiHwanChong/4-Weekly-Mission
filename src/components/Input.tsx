@@ -6,10 +6,11 @@ import Image from 'next/image';
 
 interface InputProps {
   passwordCheck?: boolean;
+  inputValues: { email: string; password: string; passwordCheck: string };
+  setInputValues: React.Dispatch<React.SetStateAction<{ email: string; password: string; passwordCheck: string }>>;
 }
 
-const Input = ({ passwordCheck }: InputProps) => {
-  const [inputValues, setInputValues] = useState({ email: '', password: '', passwordCheck: '' });
+const Input = ({ passwordCheck, inputValues, setInputValues }: InputProps) => {
   const [inputErrors, setInputErrors] = useState({ email: false, password: false, passwordCheck: false });
   const [eyeIcon, setEyeIcon] = useState<string>(eye);
 
@@ -55,14 +56,14 @@ const Input = ({ passwordCheck }: InputProps) => {
       <form className={styles.form}>
         <label htmlFor='password'>비밀번호</label>
         <input type='password' id='password' placeholder='********' onBlur={handleInput} className={` ${inputErrors.password && styles.errorInput} ${styles.input}`} />
-        <Image width={16} height={16} src={eyeIcon} alt='eye' className={styles.eye} onClick={handlePasswordReveal} />
+        <Image width={16} height={16} src={eyeIcon} alt='reveal password' className={styles.eye} onClick={handlePasswordReveal} />
       </form>
       {inputErrors.password && <p className={` ${inputErrors.password && styles.errorText}`}>비밀번호를 확인해주세요.</p>}
       {passwordCheck && (
         <form className={styles.form}>
           <label htmlFor='passwordCheck'>비밀번호</label>
           <input type='password' id='passwordCheck' placeholder='********' onBlur={handleInput} className={` ${inputErrors.passwordCheck && styles.errorInput} ${styles.input}`} />
-          <Image width={16} height={16} src={eyeIcon} alt='eye' className={styles.eye} onClick={handlePasswordReveal} />
+          <Image width={16} height={16} src={eyeIcon} alt='reveal password check' className={styles.eye} onClick={handlePasswordReveal} />
         </form>
       )}
       {inputErrors.passwordCheck && <p className={` ${inputErrors.passwordCheck && styles.errorText}`}>비밀번호를 일치시켜주세요.</p>}
