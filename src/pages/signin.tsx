@@ -7,12 +7,14 @@ import { useState } from 'react';
 
 const SignIn = () => {
   const [inputValues, setInputValues] = useState({ email: '', password: '', passwordCheck: '' });
+  const [inputErrors, setInputErrors] = useState({ email: false, password: false, passwordCheck: false });
+
   return (
     <main className={styles.container}>
       <div className={styles.content}>
         <Logo signIn />
-        <Input inputValues={inputValues} setInputValues={setInputValues} />
-        <Button inputValues={inputValues} />
+        <Input inputValues={inputValues} setInputValues={setInputValues} inputErrors={inputErrors} setInputErrors={setInputErrors} />
+        <Button inputValues={inputValues} inputErrors={inputErrors} />
         <SocialSign text='소셜 로그인' />
       </div>
     </main>

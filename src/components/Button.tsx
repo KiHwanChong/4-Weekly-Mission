@@ -1,13 +1,13 @@
 import { useRouter } from 'next/router';
 import styles from './Button.module.css';
-import { sign } from 'crypto';
 
 interface ButtonProps {
   inputValues: { email: string; password: string; passwordCheck: string };
   signup?: boolean;
+  inputErrors: { email: boolean; password: boolean; passwordCheck: boolean };
 }
 
-const Button = ({ inputValues, signup }: ButtonProps) => {
+const Button = ({ inputValues, signup, inputErrors }: ButtonProps) => {
   const router = useRouter();
 
   const handleSignup = async (e: React.MouseEvent<HTMLButtonElement>, inputValues: { email: string; password: string }) => {
@@ -52,7 +52,6 @@ const Button = ({ inputValues, signup }: ButtonProps) => {
 
       const responseData = await response.json();
       console.log(responseData);
-      localStorage.setItem('token', responseData.data.accessToken);
       router.push('/folder');
     } catch (error) {
       console.error(error);
@@ -62,6 +61,7 @@ const Button = ({ inputValues, signup }: ButtonProps) => {
   return (
     <button
       className={styles.button}
+      disabled={inputErrors.email || inputErrors.password || inputErrors.passwordCheck}
       onClick={(e) => {
         signup ? handleSignup(e, inputValues) : handleSignin(e, inputValues);
       }}>

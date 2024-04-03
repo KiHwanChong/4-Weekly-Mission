@@ -8,10 +8,12 @@ interface InputProps {
   passwordCheck?: boolean;
   inputValues: { email: string; password: string; passwordCheck: string };
   setInputValues: React.Dispatch<React.SetStateAction<{ email: string; password: string; passwordCheck: string }>>;
+  inputErrors: { email: boolean; password: boolean; passwordCheck: boolean };
+  setInputErrors: React.Dispatch<React.SetStateAction<{ email: boolean; password: boolean; passwordCheck: boolean }>>;
 }
 
-const Input = ({ passwordCheck, inputValues, setInputValues }: InputProps) => {
-  const [inputErrors, setInputErrors] = useState({ email: false, password: false, passwordCheck: false });
+const Input = ({ passwordCheck, inputValues, setInputValues, inputErrors, setInputErrors }: InputProps) => {
+  // const [inputErrors, setInputErrors] = useState({ email: false, password: false, passwordCheck: false });
   const [eyeIcon, setEyeIcon] = useState<string>(eye);
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
