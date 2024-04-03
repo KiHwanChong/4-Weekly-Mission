@@ -12,7 +12,7 @@ const SignUp = () => {
       <div className={styles.content}>
         <Logo signUp />
         <Input passwordCheck inputValues={inputValues} setInputValues={setInputValues} />
-        <Button text='회원가입' inputValues={inputValues} />
+        <Button inputValues={inputValues} signup={true} />
         <SocialSign text='다른 방식으로 가입하기' />
       </div>
     </main>

@@ -12,7 +12,7 @@ const SignIn = () => {
       <div className={styles.content}>
         <Logo signIn />
         <Input inputValues={inputValues} setInputValues={setInputValues} />
-        <Button text='로그인' inputValues={inputValues} />
+        <Button inputValues={inputValues} />
         <SocialSign text='소셜 로그인' />
       </div>
     </main>

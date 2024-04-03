@@ -37,11 +37,11 @@ const Input = ({ passwordCheck, inputValues, setInputValues }: InputProps) => {
 
     if (password.type === 'password') {
       password.type = 'text';
-      passwordCheck.type = 'text';
+      if (passwordCheck) passwordCheck.type = 'text';
       setEyeIcon(eyeOff);
     } else {
       password.type = 'password';
-      passwordCheck.type = 'password';
+      if (passwordCheck) passwordCheck.type = 'password';
       setEyeIcon(eye);
     }
   };
