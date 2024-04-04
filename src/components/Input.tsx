@@ -13,10 +13,10 @@ interface InputProps {
 }
 
 const Input = ({ passwordCheck, inputValues, setInputValues, inputErrors, setInputErrors }: InputProps) => {
-  // const [inputErrors, setInputErrors] = useState({ email: false, password: false, passwordCheck: false });
   const [eyeIcon, setEyeIcon] = useState<string>(eye);
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
     const { id, value } = e.target;
     const emailPattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
     const passwordPattern = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/;

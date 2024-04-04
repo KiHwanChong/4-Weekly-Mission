@@ -12,8 +12,21 @@ const SignButton = ({ inputValues, signup, inputErrors, setInputErrors }: Button
   const router = useRouter();
 
   const handleSignup = async (e: React.MouseEvent<HTMLButtonElement>, inputValues: { email: string; password: string }) => {
-    e.preventDefault();
+    // e.preventDefault();
+    console.log(inputValues.email);
+    try {
+      const response = await fetch('https://bootcamp-api.codeit.kr/api/check-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: inputValues.email }),
+      });
 
+      response.status === 409 ? setInputErrors({ email: true, password: false, passwordCheck: false }) : console.log('email is available');
+    } catch (error) {
+      console.error(error);
+    }
     try {
       const response = await fetch('https://bootcamp-api.codeit.kr/api/sign-up', {
         method: 'POST',
@@ -36,7 +49,7 @@ const SignButton = ({ inputValues, signup, inputErrors, setInputErrors }: Button
   };
 
   const handleSignin = async (e: React.MouseEvent<HTMLButtonElement>, inputValues: { email: string; password: string }) => {
-    e.preventDefault();
+    // e.preventDefault();
 
     try {
       const response = await fetch('https://bootcamp-api.codeit.kr/api/sign-in', {
@@ -61,6 +74,7 @@ const SignButton = ({ inputValues, signup, inputErrors, setInputErrors }: Button
 
   return (
     <button
+      type='submit'
       className={styles.button}
       disabled={inputErrors.email || inputErrors.password || inputErrors.passwordCheck}
       onClick={(e) => {
