@@ -5,9 +5,10 @@ interface ButtonProps {
   inputValues: { email: string; password: string; passwordCheck: string };
   signup?: boolean;
   inputErrors: { email: boolean; password: boolean; passwordCheck: boolean };
+  setInputErrors: React.Dispatch<React.SetStateAction<{ email: boolean; password: boolean; passwordCheck: boolean }>>;
 }
 
-const Button = ({ inputValues, signup, inputErrors }: ButtonProps) => {
+const SignButton = ({ inputValues, signup, inputErrors, setInputErrors }: ButtonProps) => {
   const router = useRouter();
 
   const handleSignup = async (e: React.MouseEvent<HTMLButtonElement>, inputValues: { email: string; password: string }) => {
@@ -50,9 +51,9 @@ const Button = ({ inputValues, signup, inputErrors }: ButtonProps) => {
         }),
       });
 
-      const responseData = await response.json();
-      console.log(responseData);
-      router.push('/folder');
+      // const responseData = await response.json();
+      // console.log(responseData);
+      response.status === 200 ? router.push('/folder') : setInputErrors({ email: true, password: true, passwordCheck: false });
     } catch (error) {
       console.error(error);
     }
@@ -70,4 +71,4 @@ const Button = ({ inputValues, signup, inputErrors }: ButtonProps) => {
   );
 };
 
-export default Button;
+export default SignButton;

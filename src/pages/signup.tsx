@@ -1,4 +1,4 @@
-import Button from '@/components/Button';
+import SignButton from '@/components/SignButton';
 import Input from '../components/Input';
 import Logo from '../components/Logo';
 import styles from './sign.module.css';
@@ -14,7 +14,7 @@ const SignUp = () => {
       <div className={styles.content}>
         <Logo signUp />
         <Input passwordCheck inputValues={inputValues} setInputValues={setInputValues} inputErrors={inputErrors} setInputErrors={setInputErrors} />
-        <Button inputValues={inputValues} signup={true} inputErrors={inputErrors} />
+        <SignButton inputValues={inputValues} signup={true} inputErrors={inputErrors} setInputErrors={setInputErrors} />
         <SocialSign text='다른 방식으로 가입하기' />
       </div>
     </main>

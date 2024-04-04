@@ -1,7 +1,7 @@
 import Input from '../components/Input';
 import Logo from '../components/Logo';
 import styles from './sign.module.css';
-import Button from '../components/Button';
+import SignButton from '../components/SignButton';
 import SocialSign from '@/components/SocialSign';
 import { useState } from 'react';
 
@@ -14,7 +14,7 @@ const SignIn = () => {
       <div className={styles.content}>
         <Logo signIn />
         <Input inputValues={inputValues} setInputValues={setInputValues} inputErrors={inputErrors} setInputErrors={setInputErrors} />
-        <Button inputValues={inputValues} inputErrors={inputErrors} />
+        <SignButton inputValues={inputValues} inputErrors={inputErrors} setInputErrors={setInputErrors} />
         <SocialSign text='소셜 로그인' />
       </div>
     </main>
