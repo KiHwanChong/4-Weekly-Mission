@@ -4,16 +4,16 @@ import styles from './Button.module.css';
 interface ButtonProps {
   inputValues: { email: string; password: string; passwordCheck: string };
   signup?: boolean;
-  inputErrors: { email: boolean; password: boolean; passwordCheck: boolean };
-  setInputErrors: React.Dispatch<React.SetStateAction<{ email: boolean; password: boolean; passwordCheck: boolean }>>;
+  inputErrors: { email: { error: boolean; message: string }; password: { error: boolean; message: string }; passwordCheck: { error: boolean; message: string } };
+  setInputErrors: React.Dispatch<
+    React.SetStateAction<{ email: { error: boolean; message: string }; password: { error: boolean; message: string }; passwordCheck: { error: boolean; message: string } }>
+  >;
 }
 
 const SignButton = ({ inputValues, signup, inputErrors, setInputErrors }: ButtonProps) => {
   const router = useRouter();
 
   const handleSignup = async (e: React.MouseEvent<HTMLButtonElement>, inputValues: { email: string; password: string }) => {
-    // e.preventDefault();
-    console.log(inputValues.email);
     try {
       const response = await fetch('https://bootcamp-api.codeit.kr/api/check-email', {
         method: 'POST',
@@ -23,7 +23,7 @@ const SignButton = ({ inputValues, signup, inputErrors, setInputErrors }: Button
         body: JSON.stringify({ email: inputValues.email }),
       });
 
-      response.status === 409 ? setInputErrors({ email: true, password: false, passwordCheck: false }) : console.log('email is available');
+      if (response.status === 409) setInputErrors((prevState) => ({ ...prevState, email: { error: true, message: '이미 사용중인 이메일입니다.' } }));
     } catch (error) {
       console.error(error);
     }
@@ -64,9 +64,9 @@ const SignButton = ({ inputValues, signup, inputErrors, setInputErrors }: Button
         }),
       });
 
-      // const responseData = await response.json();
-      // console.log(responseData);
-      response.status === 200 ? router.push('/folder') : setInputErrors({ email: true, password: true, passwordCheck: false });
+      response.status === 200
+        ? router.push('/folder')
+        : setInputErrors((prevState) => ({ ...prevState, email: { error: true, message: '이메일을 확인해주세요.' }, password: { error: true, message: '비밀번호를 확인해주세요.' } }));
     } catch (error) {
       console.error(error);
     }
@@ -76,7 +76,7 @@ const SignButton = ({ inputValues, signup, inputErrors, setInputErrors }: Button
     <button
       type='submit'
       className={styles.button}
-      disabled={inputErrors.email || inputErrors.password || inputErrors.passwordCheck}
+      disabled={inputErrors.email.error || inputErrors.password.error || inputErrors.passwordCheck.error}
       onClick={(e) => {
         signup ? handleSignup(e, inputValues) : handleSignin(e, inputValues);
       }}>

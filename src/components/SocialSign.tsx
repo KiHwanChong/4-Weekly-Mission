@@ -5,13 +5,13 @@ import googleIcon from 'assets/googleicon.svg';
 import kakaoIcon from 'assets/kakaoIcon.svg';
 
 interface SocialSignProps {
-  text: string;
+  signup?: boolean;
 }
 
-const SocialSign = ({ text }: SocialSignProps) => {
+const SocialSign = ({ signup }: SocialSignProps) => {
   return (
     <div className={styles.container}>
-      <p>{text}</p>
+      {signup ? <p>다른 방식으로 가입하기</p> : <p>소셜 로그인</p>}
       <div className={styles.iconContainer}>
         <Link href='https://www.google.com'>
           <Image width={42} height={42} className={styles.google} src={googleIcon} alt='google sign' />
