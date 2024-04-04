@@ -92,23 +92,23 @@ const SignForm = ({ signup }: SignFormProps) => {
       <form className={styles.form}>
         <label htmlFor='email'>이메일</label>
         <input type='text' id='email' placeholder='codeit@codeit.com' onBlur={handleInput} className={` ${inputErrors.email.error && styles.errorInput} ${styles.input}`} />
+        {inputErrors.email.error && <p className={` ${inputErrors.email.error && styles.errorText}`}>{inputErrors.email.message}</p>}
       </form>
-      {inputErrors.email.error && <p className={` ${inputErrors.email.error && styles.errorText}`}>{inputErrors.email.message}</p>}
 
       <form className={styles.form}>
         <label htmlFor='password'>비밀번호</label>
         <input type='password' id='password' placeholder='********' onBlur={handleInput} className={` ${inputErrors.password.error && styles.errorInput} ${styles.input}`} />
         <Image width={16} height={16} src={eyeIcon} alt='reveal password' className={styles.eye} onClick={handlePasswordReveal} />
+        {inputErrors.password.error && <p className={` ${inputErrors.password.error && styles.errorText}`}>{inputErrors.password.message}</p>}
       </form>
-      {inputErrors.password.error && <p className={` ${inputErrors.password.error && styles.errorText}`}>{inputErrors.password.message}</p>}
       {signup && (
         <form className={styles.form}>
           <label htmlFor='passwordCheck'>비밀번호</label>
           <input type='password' id='passwordCheck' placeholder='********' onBlur={handleInput} className={` ${inputErrors.passwordCheck.error && styles.errorInput} ${styles.input}`} />
           <Image width={16} height={16} src={eyeIcon} alt='reveal password check' className={styles.eye} onClick={handlePasswordReveal} />
+          {inputErrors.passwordCheck.error && <p className={` ${inputErrors.passwordCheck.error && styles.errorText}`}>{inputErrors.passwordCheck.message}</p>}
         </form>
       )}
-      {inputErrors.passwordCheck.error && <p className={` ${inputErrors.passwordCheck.error && styles.errorText}`}>{inputErrors.passwordCheck.message}</p>}
       <SignButton signup={signup} inputValues={inputValues} inputErrors={inputErrors} setInputErrors={setInputErrors} />
       <SocialSign signup={signup} />
     </div>

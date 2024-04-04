@@ -1,6 +1,9 @@
 .errorText {
   color: var(--error);
   margin: 0;
+  font-size: 14px;
+  position: absolute;
+  bottom: -24px;
 }
 
 .headerText {

@@ -38,11 +38,14 @@ const SignButton = ({ inputValues, signup, inputErrors, setInputErrors }: Button
           password: inputValues.password,
         }),
       });
-
-      const responseData = await response.json();
-      console.log(responseData);
-      localStorage.setItem('token', responseData.data.accessToken);
-      router.push('/folder');
+      if (response.status === 201) {
+        const responseData = await response.json();
+        console.log(responseData);
+        localStorage.setItem('token', responseData.data.accessToken);
+        router.push('/folder');
+      } else {
+        setInputErrors((prevState) => ({ ...prevState, email: { error: true, message: '이메일을 확인해주세요.' }, password: { error: true, message: '비밀번호를 확인해주세요.' } }));
+      }
     } catch (error) {
       console.error(error);
     }
