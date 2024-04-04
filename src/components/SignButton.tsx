@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import styles from './Button.module.css';
+import { useEffect } from 'react';
 
 interface ButtonProps {
   inputValues: { email: string; password: string; passwordCheck: string };
@@ -13,7 +14,7 @@ interface ButtonProps {
 const SignButton = ({ inputValues, signup, inputErrors, setInputErrors }: ButtonProps) => {
   const router = useRouter();
 
-  const handleSignup = async (e: React.MouseEvent<HTMLButtonElement>, inputValues: { email: string; password: string }) => {
+  const handleSignup = async (e: React.MouseEvent<HTMLButtonElement> | KeyboardEvent, inputValues: { email: string; password: string }) => {
     try {
       const response = await fetch('https://bootcamp-api.codeit.kr/api/check-email', {
         method: 'POST',
@@ -22,38 +23,37 @@ const SignButton = ({ inputValues, signup, inputErrors, setInputErrors }: Button
         },
         body: JSON.stringify({ email: inputValues.email }),
       });
-
-      if (response.status === 409) setInputErrors((prevState) => ({ ...prevState, email: { error: true, message: '이미 사용중인 이메일입니다.' } }));
-    } catch (error) {
-      console.error(error);
-    }
-    try {
-      const response = await fetch('https://bootcamp-api.codeit.kr/api/sign-up', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: inputValues.email,
-          password: inputValues.password,
-        }),
-      });
-      if (response.status === 201) {
-        const responseData = await response.json();
-        console.log(responseData);
-        localStorage.setItem('token', responseData.data.accessToken);
-        router.push('/folder');
+      if (response.status === 409) {
+        setInputErrors((prevState) => ({ ...prevState, email: { error: true, message: '이미 사용중인 이메일입니다.' } }));
       } else {
-        setInputErrors((prevState) => ({ ...prevState, email: { error: true, message: '이메일을 확인해주세요.' }, password: { error: true, message: '비밀번호를 확인해주세요.' } }));
+        try {
+          const response = await fetch('https://bootcamp-api.codeit.kr/api/sign-up', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              email: inputValues.email,
+              password: inputValues.password,
+            }),
+          });
+          if (response.status === 200) {
+            const responseData = await response.json();
+            localStorage.setItem('token', responseData.data.accessToken);
+            router.push('/folder');
+          } else {
+            setInputErrors((prevState) => ({ ...prevState, email: { error: true, message: '이메일을 확인해주세요.' }, password: { error: true, message: '비밀번호를 확인해주세요.' } }));
+          }
+        } catch (error) {
+          console.error(error);
+        }
       }
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleSignin = async (e: React.MouseEvent<HTMLButtonElement>, inputValues: { email: string; password: string }) => {
-    // e.preventDefault();
-
+  const handleSignin = async (e: React.MouseEvent<HTMLButtonElement> | KeyboardEvent, inputValues: { email: string; password: string }) => {
     try {
       const response = await fetch('https://bootcamp-api.codeit.kr/api/sign-in', {
         method: 'POST',
@@ -67,17 +67,33 @@ const SignButton = ({ inputValues, signup, inputErrors, setInputErrors }: Button
         }),
       });
 
-      response.status === 200
-        ? router.push('/folder')
-        : setInputErrors((prevState) => ({ ...prevState, email: { error: true, message: '이메일을 확인해주세요.' }, password: { error: true, message: '비밀번호를 확인해주세요.' } }));
+      if (response.status === 200) {
+        const responseData = await response.json();
+        localStorage.setItem('token', responseData.data.accessToken);
+        router.push('/folder');
+      } else {
+        setInputErrors((prevState) => ({ ...prevState, email: { error: true, message: '이메일을 확인해주세요.' }, password: { error: true, message: '비밀번호를 확인해주세요.' } }));
+      }
     } catch (error) {
       console.error(error);
     }
   };
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Enter') {
+        signup ? handleSignup(e, inputValues) : handleSignin(e, inputValues);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  });
+
   return (
     <button
-      type='submit'
       className={styles.button}
       disabled={inputErrors.email.error || inputErrors.password.error || inputErrors.passwordCheck.error}
       onClick={(e) => {

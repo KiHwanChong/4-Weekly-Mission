@@ -88,13 +88,16 @@ const SignForm = ({ signup }: SignFormProps) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div
+      className={styles.container}
+      onSubmit={(e) => {
+        e.preventDefault();
+      }}>
       <form className={styles.form}>
         <label htmlFor='email'>이메일</label>
         <input type='text' id='email' placeholder='codeit@codeit.com' onBlur={handleInput} className={` ${inputErrors.email.error && styles.errorInput} ${styles.input}`} />
         {inputErrors.email.error && <p className={` ${inputErrors.email.error && styles.errorText}`}>{inputErrors.email.message}</p>}
       </form>
-
       <form className={styles.form}>
         <label htmlFor='password'>비밀번호</label>
         <input type='password' id='password' placeholder='********' onBlur={handleInput} className={` ${inputErrors.password.error && styles.errorInput} ${styles.input}`} />
