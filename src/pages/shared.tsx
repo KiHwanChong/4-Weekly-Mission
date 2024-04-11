@@ -5,8 +5,9 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Profile from "../components/SharedPage/Profile";
 import SearchBar from "../components/SearchBar";
+import { GetStaticProps } from "next";
 
-interface Item {
+interface ProfileItems {
   title: string;
   createdAt: Date;
   created_at: Date;
@@ -16,25 +17,44 @@ interface Item {
   image_source: string;
 }
 
-function SharePage() {
-  const [items, setItems] = useState<Item[]>([]);
-  const [profile, setProfile] = useState({ name: "", profileImageSource: "" });
-  const [folderName, setFolderName] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
+export const getStaticProps: GetStaticProps = async () => {
+  const data = await getFolders();
 
-  const handleLoad = async () => {
-    const { folder } = await getFolders();
-    setItems(folder.links);
-    setProfile({
-      name: folder.owner.name,
-      profileImageSource: folder.owner.profileImageSource,
-    });
-    setFolderName(folder.name);
+  if (!data || !data.folder || !data.folder.owner) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const { folder } = await getFolders();
+  const items = folder.links;
+  const profile = {
+    name: folder.owner.name,
+    profileImageSource: folder.owner.profileImageSource,
   };
+  const folderName = folder.name;
 
-  useEffect(() => {
-    handleLoad();
-  }, []);
+  return {
+    props: {
+      items,
+      profile,
+      folderName,
+    },
+  };
+};
+
+interface SharePageProps {
+  items: ProfileItems[];
+  profile: { name: string; profileImageSource: string };
+  folderName: string;
+}
+
+const SharePage: React.FC<SharePageProps> = ({
+  items,
+  profile,
+  folderName,
+}) => {
+  const [searchQuery, setSearchQuery] = useState("");
 
   return (
     <div className="App">
@@ -45,6 +65,6 @@ function SharePage() {
       <Footer />
     </div>
   );
-}
+};
 
 export default SharePage;
