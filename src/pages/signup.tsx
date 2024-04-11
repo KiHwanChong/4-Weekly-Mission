@@ -1,4 +1,4 @@
-import SignForm from '../components/SignForm';
+import SignupForm from '../components/SignupForm';
 import Logo from '../components/Logo';
 import styles from './sign.module.css';
 
@@ -7,7 +7,7 @@ const SignUp = () => {
     <main className={styles.container}>
       <div className={styles.content}>
         <Logo signUp />
-        <SignForm signup />
+        <SignupForm />
       </div>
     </main>
   );
