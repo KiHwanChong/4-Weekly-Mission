@@ -29,7 +29,7 @@ const SigninForm = () => {
     if (token) {
       router.push('/folder');
     }
-  }, []);
+  }, [router]);
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -61,6 +61,14 @@ const SigninForm = () => {
           password: {
             error: true,
             message: '비밀번호를 입력해주세요.',
+          },
+        }));
+      } else {
+        setInputErrors((prevState) => ({
+          ...prevState,
+          password: {
+            error: false,
+            message: '',
           },
         }));
       }
@@ -95,8 +103,12 @@ const SigninForm = () => {
 
       if (response.status === 200) {
         const responseData = await response.json();
-        localStorage.setItem('token', responseData.data.accessToken);
-        router.push('/folder');
+        if (!responseData.data.accessToken) {
+          return console.error('No token');
+        } else {
+          localStorage.setItem('token', responseData.data.accessToken);
+          router.push('/folder');
+        }
       } else {
         setInputErrors((prevState) => ({ ...prevState, email: { error: true, message: '이메일을 확인해주세요.' }, password: { error: true, message: '비밀번호를 확인해주세요.' } }));
       }
