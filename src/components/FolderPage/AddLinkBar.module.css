@@ -6,6 +6,13 @@
   justify-content: center;
 }
 
+.isBottom {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 50px 0;
+}
+
 .addLinkInput {
   flex: 1;
   padding: 1rem 2.5rem;
@@ -14,7 +21,7 @@
   background-color: #ffffff;
 }
 
-.addLinkContainer img {
+.link {
   position: absolute;
   top: 35%;
   left: 15px;

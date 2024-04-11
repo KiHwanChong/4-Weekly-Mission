@@ -1,23 +1,33 @@
-import styles from './AddLinkBar.module.css';
-import linkIcon from 'assets/linkIcon.svg';
-import ModalAddFolder from '../Modal/ModalAddFolder';
-import useModal from '../../hooks/useModal';
-import Image from 'next/image';
+import styles from "./AddLinkBar.module.css";
+import linkIcon from "assets/linkIcon.svg";
+import ModalAddFolder from "../Modal/ModalAddFolder";
+import useModal from "../../hooks/useModal";
+import Image from "next/image";
+import classnames from "classnames/bind";
 
-const AddLink = () => {
+const cx = classnames.bind(styles);
+
+const AddLink = ({
+  isAddLinkBarVisible,
+}: {
+  isAddLinkBarVisible?: boolean;
+}) => {
   const { showModal, handleOpenModal, handleCloseModal } = useModal();
-
+  const addLinkContainer = cx({
+    addLinkContainer: true,
+    isBottom: isAddLinkBarVisible,
+  });
   return (
-    <div className={styles.addLinkContainer}>
+    <div className={addLinkContainer}>
       <form className={styles.addLinkForm}>
-        <label htmlFor='linkInput' className={styles.hiddenLabel}>
+        <label htmlFor="linkInput" className={styles.hiddenLabel}>
           링크를 추가해보세요.
         </label>
-        <Image src={linkIcon} alt='link icon' />
+        <Image src={linkIcon} alt="link icon" className={styles.link} />
         <input
-          type='text'
-          id='linkInput'
-          placeholder='링크를 추가해 보세요.'
+          type="text"
+          id="linkInput"
+          placeholder="링크를 추가해 보세요."
           className={styles.addLinkInput}
         />
         <button onClick={handleOpenModal}>추가하기</button>

@@ -1,12 +1,12 @@
-import FolderList from '../components/FolderPage/FolderList';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import AddLinkBar from '../components/FolderPage/AddLinkBar';
-import SearchBar from '../components/SearchBar';
-import { useEffect, useRef, useState } from 'react';
+import FolderList from "../components/FolderPage/FolderList";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import AddLinkBar from "../components/FolderPage/AddLinkBar";
+import SearchBar from "../components/SearchBar";
+import { useEffect, useRef, useState } from "react";
 
 const FolderPage = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [isAddLinkBarVisible, setIsAddLinkBarVisible] = useState(true);
 
   const addLinkBarRef = useRef<HTMLDivElement>(null);
@@ -19,7 +19,7 @@ const FolderPage = () => {
       },
       {
         root: null,
-        rootMargin: '0px',
+        rootMargin: "0px",
         threshold: 0.1,
       }
     );
@@ -44,7 +44,9 @@ const FolderPage = () => {
         </div>
         <SearchBar setSearchQuery={setSearchQuery} searchQuery={searchQuery} />
         <FolderList searchQuery={searchQuery} />
-        {!isAddLinkBarVisible && <AddLinkBar />}
+        {!isAddLinkBarVisible && (
+          <AddLinkBar isAddLinkBarVisible={!isAddLinkBarVisible} />
+        )}
       </main>
       <Footer />
     </>
