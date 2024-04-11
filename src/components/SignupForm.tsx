@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './SignForm.module.css';
 import eye from 'assets/eye.svg';
 import eyeOff from 'assets/eyeOff.svg';
@@ -25,6 +25,14 @@ const SignupForm = () => {
     password: { error: false, message: '' },
     passwordCheck: { error: false, message: '' },
   });
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      router.push('/folder');
+    }
+  }, []);
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -94,6 +102,7 @@ const SignupForm = () => {
   };
 
   const handleSignup = async (e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>, inputValues: { email: string; password: string }) => {
+    e.preventDefault();
     try {
       const response = await fetch('https://bootcamp-api.codeit.kr/api/check-email', {
         method: 'POST',
@@ -146,24 +155,23 @@ const SignupForm = () => {
           <Image width={16} height={16} src={isPasswordShown ? eyeOff : eye} alt='reveal password' className={styles.eye} onClick={handlePasswordReveal} />
           {inputErrors.password.error && <p className={` ${inputErrors.password.error && styles.errorText}`}>{inputErrors.password.message}</p>}
         </div>
-
         <div className={styles.inputBox}>
           <label htmlFor='passwordCheck'>비밀번호 확인</label>
           <input type='password' id='passwordCheck' placeholder='********' onBlur={handleInput} className={` ${inputErrors.passwordCheck.error && styles.errorInput} ${styles.input}`} />
           <Image width={16} height={16} src={isPasswordShown ? eyeOff : eye} alt='reveal password check' className={styles.eye} onClick={handlePasswordReveal} />
           {inputErrors.passwordCheck.error && <p className={` ${inputErrors.passwordCheck.error && styles.errorText}`}>{inputErrors.passwordCheck.message}</p>}
         </div>
+        <button
+          className={styles.button}
+          disabled={inputErrors.email.error || inputErrors.password.error || inputErrors.passwordCheck.error}
+          onClick={(e) => {
+            handleSignup(e, inputValues);
+          }}
+          type='submit'
+        >
+          회원가입
+        </button>
       </form>
-      <button
-        className={styles.button}
-        disabled={inputErrors.email.error || inputErrors.password.error || inputErrors.passwordCheck.error}
-        onClick={(e) => {
-          handleSignup(e, inputValues);
-        }}
-        type='submit'
-      >
-        회원가입
-      </button>
       <SocialSign signup={true} />
     </div>
   );

@@ -11,7 +11,7 @@ interface InputErrors {
   password: { error: boolean; message: string };
 }
 
-const SignInForm = () => {
+const SigninForm = () => {
   const router = useRouter();
   const [isPasswordShown, setIsPasswordShown] = useState(false);
   const [inputValues, setInputValues] = useState({
@@ -80,6 +80,7 @@ const SignInForm = () => {
   };
 
   const handleSignin = async (e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>, inputValues: { email: string; password: string }) => {
+    e.preventDefault();
     try {
       const response = await fetch('https://bootcamp-api.codeit.kr/api/sign-in', {
         method: 'POST',
@@ -134,4 +135,4 @@ const SignInForm = () => {
   );
 };
 
-export default SignInForm;
+export default SigninForm;
