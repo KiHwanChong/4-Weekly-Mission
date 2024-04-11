@@ -18,7 +18,9 @@
 }
 
 .wrapper {
-  margin: 1rem;
+  margin: 0 auto;
+  max-width: 1380px;
+  width: 100%;
 }
 
 .folderListWrapper {

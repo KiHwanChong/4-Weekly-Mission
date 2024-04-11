@@ -1,4 +1,4 @@
-import styles from './FolderButtons.module.css';
+import styles from "./FolderButtons.module.css";
 
 interface FolderList {
   id: number;
@@ -28,7 +28,8 @@ const FolderButtons = ({
             ? `${styles.folderButton} ${styles.selected}`
             : `${styles.folderButton}`
         }
-        onClick={() => handleFolderClick(folder.id)}>
+        onClick={() => handleFolderClick(folder.id)}
+      >
         {folder.name}
       </button>
     ))}
