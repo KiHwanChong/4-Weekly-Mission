@@ -1,16 +1,26 @@
-import { useState, useEffect } from 'react';
-import CardList from '../components/CardList';
-import { getFolders } from '@/pages/api/api';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import Profile from '../components/SharedPage/Profile';
-import SearchBar from '../components/SearchBar';
+import { useState, useEffect } from "react";
+import CardList from "../components/CardList";
+import { getFolders } from "@/pages/api/api";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import Profile from "../components/SharedPage/Profile";
+import SearchBar from "../components/SearchBar";
+
+interface Item {
+  title: string;
+  createdAt: Date;
+  created_at: Date;
+  url: string;
+  description: string;
+  imageSource: string;
+  image_source: string;
+}
 
 function SharePage() {
-  const [items, setItems] = useState([]);
-  const [profile, setProfile] = useState({ name: '', profileImageSource: '' });
-  const [folderName, setFolderName] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [items, setItems] = useState<Item[]>([]);
+  const [profile, setProfile] = useState({ name: "", profileImageSource: "" });
+  const [folderName, setFolderName] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleLoad = async () => {
     const { folder } = await getFolders();
@@ -27,7 +37,7 @@ function SharePage() {
   }, []);
 
   return (
-    <div className='App'>
+    <div className="App">
       <Header />
       <Profile profile={profile} folderName={folderName} />
       <SearchBar setSearchQuery={setSearchQuery} searchQuery={searchQuery} />
