@@ -28,6 +28,8 @@ const SigninForm = () => {
 
     if (token) {
       router.push('/folder');
+    } else {
+      router.push('/signin');
     }
   }, [router]);
 
