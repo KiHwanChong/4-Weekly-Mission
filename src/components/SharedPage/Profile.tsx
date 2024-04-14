@@ -14,12 +14,7 @@ const Profile = ({ profile, folderName }: ProfileProps) => {
     <div>
       <div className={styles.profile}>
         <div className={styles['profile-image']}>
-          <Image
-            width={128}
-            height={128}
-            src={profile.profileImageSource}
-            alt='프로필 이미지'
-          />
+          <Image width={128} height={128} src={profile.profileImageSource} alt='프로필 이미지' />
         </div>
         <div className={styles['profile-info']}>
           <h1>@{profile.name || 'No Name'}</h1>
